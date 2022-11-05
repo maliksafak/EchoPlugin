@@ -1,5 +1,6 @@
 #pragma once
 
+#define LINE_COUNT_MAX 10
 
 //==============================================================================
 class AudioPlugin  : public AudioProcessor
@@ -23,7 +24,7 @@ public:
     bool hasEditor() const override                        { return true;   }
 
     //==============================================================================
-    const String getName() const override                  { return "Audio PlugIn"; }
+    const String getName() const override                  { return "Echo PlugIn"; }
     bool acceptsMidi() const override                      { return false; }
     bool producesMidi() const override                     { return false; }
     double getTailLengthSeconds() const override           { return 0; }
@@ -51,7 +52,14 @@ public:
 
 private:
     //==============================================================================
-    AudioParameterFloat* gain;
+    AudioParameterInt* line_count;
+    AudioParameterFloat* delay_time;
+    AudioParameterFloat* attenuation;
+    AudioParameterFloat* dry;
+    AudioParameterFloat* wet;
+
+    float** lines;
+    size_t line_head;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPlugin)
