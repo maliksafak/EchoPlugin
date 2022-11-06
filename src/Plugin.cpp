@@ -58,7 +58,7 @@ void AudioPlugin::processSamples(AudioBuffer<T> &audioBuffer, MidiBuffer &midiBu
             lines[line][line_head] = lines[line - 1][line_head] * (1.0f - attenuation->get());
         }
         sample_wet += lines[0][line_head];
-        lines[0][line_head] = sample_dry;
+        lines[0][line_head] = sample_dry * (1.0f - attenuation->get());
 
         float mixed = (sample_dry * dry->get()) + (sample_wet * wet->get());
 
